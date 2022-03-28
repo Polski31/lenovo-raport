@@ -1,6 +1,7 @@
 import csv
 import sys
 import product
+from rest import get_base_info, get_machine_type_model
 
 source_file = (sys.argv[len(sys.argv) - 1])
 products = []
@@ -27,5 +28,13 @@ def write_result():
             writer.writerow({'MTM': p.machine_type_model, 'SN': p.serial_number})
 
 
+def update_mtms():
+    for p in products:
+        p.update_machine_type_model(  # updates mtm of product in productList
+            get_machine_type_model(  # gets mtm from json
+                get_base_info(p)))  # gets json info about product
+
+
 read_file()
+update_mtms()
 write_result()
