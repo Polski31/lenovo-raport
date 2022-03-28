@@ -20,4 +20,4 @@ def get_machine_type_model(base_info):
     if base_info["msg"]["desc"] == "Success":
         return base_info["data"]["machineInfo"]["product"]
     else:
-        return "NOT FOUND"
+        return "NOT  FOUND"

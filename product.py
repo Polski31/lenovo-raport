@@ -11,16 +11,19 @@ class Product:
 
 
 class ProductList:
-    product_list = []
+    __product_list = []
 
     def add_product(self, product: Product):
-        self.product_list.append(product)
+        self.__product_list.append(product)
 
     def find_product(self, sn):
-        return (product for product in self.product_list if sn == product.serial_number)
+        return (product for product in self.__product_list if sn == product.serial_number)
 
     def get_product(self, index):
-        if 0 < index < len(self.product_list):
-            return self.product_list[index]
+        if 0 < index < len(self.__product_list):
+            return self.__product_list[index]
         else:
             return None
+
+    def get_product_list(self):
+        return self.__product_list
