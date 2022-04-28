@@ -1,6 +1,6 @@
 import requests
 import json
-import product
+from products import product
 
 api_url = "https://pcsupport.lenovo.com/pl/en/api/v4/upsell/redport/getIbaseInfo"
 headers = {"Content-Type": "application/json"}

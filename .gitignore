@@ -1,6 +1,5 @@
 .idea/
 __pycache__/
 post_request.png
-sn.csv
-products.csv
+.gitignore
 venv/

@@ -1,7 +1,7 @@
 import argparse
 import csv
 
-import product
+from products import product, product_list
 from rest import get_base_info, get_machine_type_model
 
 arg_parser = argparse.ArgumentParser()
@@ -11,11 +11,11 @@ args = arg_parser.parse_args()
 
 source_file = args.source
 destination_file = args.destination
-products = product.ProductList()
+products = product_list.ProductList()
 
 
-def read_file():
-    with open(source_file, newline='\n') as csvfile:
+def read_file(file):
+    with open(file, newline='\n') as csvfile:
         reader = csv.reader(csvfile, delimiter='\n')
         for row in reader:
             if len(row) == 1:
@@ -24,8 +24,8 @@ def read_file():
                 products.add_product(product.Product(row[0], row[1]))
 
 
-def write_result():
-    with open(destination_file, 'w', newline='\n') as csvfile:
+def write_result(file):
+    with open(file, 'w', newline='\n') as csvfile:
         fieldnames = ['MTM', 'SN']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -42,6 +42,6 @@ def update_mtms():
 
 
 if __name__ == '__main__':
-    read_file()
+    read_file(source_file)
     update_mtms()
-    write_result()
+    write_result(destination_file)
