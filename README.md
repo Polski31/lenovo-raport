@@ -9,7 +9,7 @@ usage:
   * source       path to source csv file with SN(s)
   * destination  path to destination csv file with SN(s) and MTM(s)
 
-  in db directory create .env file containing:
+  - in db directory create .env file containing:
     - MONGO_URI=[connection_string]
     - DB_NAME=[database_name]
     - COLLECTION_NAME=[collection_name]
