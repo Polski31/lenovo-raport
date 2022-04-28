@@ -3,3 +3,5 @@ __pycache__/
 post_request.png
 .gitignore
 venv/
+*.env
+*/__init__.py

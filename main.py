@@ -1,8 +1,9 @@
 import argparse
-import csv
 
-from products import product, product_list
-from rest import get_base_info, get_machine_type_model
+from connection.rest import get_base_info, get_machine_type_model
+from db.db import backup_products
+from file_processing import read_file, write_result
+from products import product_list
 
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument("source", help="path to source csv file with SN(s)")
@@ -14,26 +15,6 @@ destination_file = args.destination
 products = product_list.ProductList()
 
 
-def read_file(file):
-    with open(file, newline='\n') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\n')
-        for row in reader:
-            if len(row) == 1:
-                products.add_product(product.Product(row[0]))
-            if len(row) == 2:
-                products.add_product(product.Product(row[0], row[1]))
-
-
-def write_result(file):
-    with open(file, 'w', newline='\n') as csvfile:
-        fieldnames = ['MTM', 'SN']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-        writer.writeheader()
-        for p in products.get_product_list():
-            writer.writerow({'MTM': p.machine_type_model, 'SN': p.serial_number})
-
-
 def update_mtms():
     for p in products.get_product_list():
         p.update_machine_type_model(  # updates mtm of product in productList
@@ -42,6 +23,7 @@ def update_mtms():
 
 
 if __name__ == '__main__':
-    read_file(source_file)
+    read_file(source_file, products)
     update_mtms()
-    write_result(destination_file)
+    write_result(destination_file, products)
+    backup_products(destination_file)
