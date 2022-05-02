@@ -1,4 +1,4 @@
-# Raport-Lenovo-Scrap
+# Lenovo raport
 Scrapping Machine Type Model with Serial Number
 
 Script takes csv file with SN and with usage of LenovoAPI retrieves MTM. Results are stored in csv file and sended to mongoDB.
